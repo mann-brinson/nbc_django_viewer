@@ -1,0 +1,67 @@
+<html>
+
+	<!-- CSS stylesheet -->
+	<head>
+		<style>
+			body {font-family: "Arial", Helvetica, sans-serif;}
+			div.dbbox {margin-top: 70px; margin-bottom: 10px; font-weight: bold; text-align: center}
+			div.reqsize {font-size: 90%; margin-top: 50px; text-align: center}
+			div.warning {font-size: 100%; margin-top: 50px; text-align: center; font-weight: bold}
+			.redText {color: red}
+			.link_header {text-align: center; margin-top: 70px;  margin-bottom: 10px; font-weight: lighter}
+			.Table {display: table; width:90%; font-size:85%}
+			.TableRow {display: table-row;}
+			.TableCellLeft {display: table-cell; padding:3px 10px; width:150px; text-align: left}
+			.TableCellRight {display: table-cell; padding:3px 10px; text-align: left}
+			.EmptyTableCell {display: table-cell; height:20px; border-bottom: 1px solid #ddd}
+			.center {margin-left: auto; margin-right: auto}
+			h3 {text-align: center}
+		</style>
+	</head>
+
+	<h1 style="background-color:#000099; color:white" >Torrent Search</h1>
+	
+	<body>
+		<!-- Form used for collecting user search -->
+		<div class=dbbox><center><form action='.' method='POST'>{% csrf_token %} 
+		    {{ form.as_p }} 
+		    <input type='submit' value='Search' />
+		</form></center></div>
+
+		<table border="2" id="prod-res-table" class="center">
+		    <tr>
+		        <th>torr_id</th>
+		        <th>name</th>
+		        <th>rarbg_added</th>
+		        <th>size</th>
+		        <th>size_units</th>
+		        <th>n_seed</th>
+		        <th>n_leech</th>
+		        <th>torr_url</th>
+		        <th>infohash</th>
+		        <th>imdb_id</th>
+		        <th>title</th>
+		        <th>n_keywords</th>
+		    </tr>
+		    {% for row in results %}
+		    <tr> 
+		        <td>{{ row.torr_id }}</td>
+		        <td>{{ row.name }}</td>
+		        <td>{{ row.rarbg_added }}</td>
+		        <td>{{ row.size }}</td>
+		        <td>{{ row.size_units }}</td>
+		        <td>{{ row.n_seed }}</td>
+		        <td>{{ row.n_leech }}</td>
+		        <td><a href="{{ row.torr_url }}">{{ row.torr_url }}</a></td>
+		        <td>{{ row.infohash }}</td>
+		        <td><a href="https://www.imdb.com/title/{{ row.imdb_id }}">{{ row.imdb_id }}</a></td>
+
+		        <td>{{ row.title }}</td>
+		        <td>{{ row.n_keywords }}</td>
+		    </tr>
+		    {% endfor %}
+		</table>
+
+	</body>
+
+</html>
